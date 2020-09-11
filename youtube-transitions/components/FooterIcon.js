@@ -23,16 +23,16 @@ export default class FooterIcon extends React.PureComponent<FooterIconProps> {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   icon: {
     fontSize: 24,
-    color: 'gray',
+    color: 'gray'
   },
   label: {
     color: 'gray',
     marginTop: 8,
     fontSize: 8,
-    fontWeight: '500',
-  },
+    fontWeight: '500'
+  }
 });

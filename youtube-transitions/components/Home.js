@@ -14,7 +14,7 @@ export default class Home extends React.PureComponent<HomeProps> {
     return (
       <ScrollView style={styles.container}>
         {
-          videos.map(video => (
+          videos.map((video) => (
             <VideoThumbnail key={video.id} {...{ video }} />
           ))
         }
@@ -25,6 +25,6 @@ export default class Home extends React.PureComponent<HomeProps> {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-  },
+    marginTop: Constants.statusBarHeight
+  }
 });

@@ -8,10 +8,15 @@ import Animated from 'react-native-reanimated';
 
 import { type Video as VideoModel } from './videos';
 import VideoContent from './VideoContent';
-import PlayerControls from './PlayerControls';
+import PlayerControls, { PLACEHOLDER_WIDTH } from './PlayerControls';
+
+const AnimatedVideo = Animated.createAnimatedComponent(Video);
 
 const { width, height } = Dimensions.get('window');
 const { statusBarHeight } = Constants;
+const minHeight = 64;
+const midBound = height - 3 * minHeight;
+const upperBound = midBound + minHeight;
 const shadow = {
   alignItems: 'center',
   elevation: 1,
@@ -27,10 +32,10 @@ type VideoModalProps = {
 
 function runSpring(clock, value, dest) {
   const state = {
-    finished: new Value(0),
-    velocity: new Value(0),
-    position: new Value(0),
-    time: new Value(0)
+    finished: new Animated.Value(0),
+    velocity: new Animated.Value(0),
+    position: new Animated.Value(0),
+    time: new Animated.Value(0)
   };
 
   const config = {
@@ -40,19 +45,19 @@ function runSpring(clock, value, dest) {
     overshootClamping: false,
     restSpeedThreshold: 1,
     restDisplacementThreshold: 0.5,
-    toValue: new Value(0)
+    toValue: new Animated.Value(0)
   };
 
   return [
-    cond(clockRunning(clock), 0, [
-      set(state.finished, 0),
-      set(state.velocity, 0),
-      set(state.position, value),
-      set(config.toValue, dest),
-      startClock(clock)
+    Animated.cond(Animated.clockRunning(clock), 0, [
+      Animated.set(state.finished, 0),
+      Animated.set(state.velocity, 0),
+      Animated.set(state.position, value),
+      Animated.set(config.toValue, dest),
+      Animated.startClock(clock)
     ]),
-    spring(clock, state, config),
-    cond(state.finished, stopClock(clock)),
+    Animated.spring(clock, state, config),
+    Animated.cond(state.finished, Animated.stopClock(clock)),
     state.position
   ];
 }
@@ -62,14 +67,18 @@ export default class VideoModal extends React.PureComponent<VideoModalProps> {
 
   velocityY = new Animated.Value(0)
 
+  offsetY = new Animated.Value(0)
+
   gestureState = new Animated.Value(State.UNDETERMINED)
 
   onGestureEvent: $Call<event>;
 
+  translateY: Animated.Value;
+
   constructor(props: VideoModalProps) {
     super(props);
     const {
-      translationY, velocityY, gestureState
+      translationY, velocityY, gestureState, offsetY
     } = this;
     this.onGestureEvent = Animated.event(
       [
@@ -83,11 +92,78 @@ export default class VideoModal extends React.PureComponent<VideoModalProps> {
       ],
       { useNativeDriver: true },
     );
+
+    const clockY = new Animated.Clock();
+    const finalTranslateY = Animated.add(translationY, Animated.multiply(0.2, velocityY));
+    const translationThreshold = height / 2;
+    const snapPoint = Animated.cond(
+      Animated.lessThan(finalTranslateY, translationThreshold),
+      0,
+      upperBound,
+    );
+
+    this.translateY = Animated.cond(
+      Animated.eq(gestureState, State.END),
+      [
+        Animated.set(translationY, runSpring(clockY, Animated.add(offsetY, translationY), snapPoint)),
+        Animated.set(offsetY, translationY),
+        translationY
+      ],
+      [
+        Animated.cond(
+          Animated.eq(gestureState, State.BEGAN),
+          Animated.stopClock(clockY)
+        ),
+        Animated.add(offsetY, translationY)
+      ],
+    );
   }
 
   render() {
-    const { onGestureEvent, translationY: translateY } = this;
+    const { onGestureEvent, translateY } = this;
     const { video } = this.props;
+
+    const playerControlsOpacity = Animated.interpolate(translateY, {
+      inputRange: [midBound, upperBound],
+      outputRange: [0, 1],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
+    const videoContainerWidth = Animated.interpolate(translateY, {
+      inputRange: [0, midBound],
+      outputRange: [width, width - 16],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
+    const videoWidth = Animated.interpolate(translateY, {
+      inputRange: [0, midBound, upperBound],
+      outputRange: [width, width - 16, PLACEHOLDER_WIDTH],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
+    const videoHeight = Animated.interpolate(translateY, {
+      inputRange: [0, midBound],
+      outputRange: [width / 1.78, minHeight]
+    });
+
+    const contentOpacity = Animated.interpolate(translateY, {
+      inputRange: [0, upperBound - 100],
+      outputRange: [1, 0],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
+    const contentWidth = Animated.interpolate(translateY, {
+      inputRange: [0, midBound],
+      outputRange: [width, width - 16],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
+    const contentHeight = Animated.interpolate(translateY, {
+      inputRange: [0, upperBound],
+      outputRange: [height, 0],
+      extrapolate: Animated.Extrapolate.CLAMP
+    });
+
     return (
       <>
         <View
@@ -106,22 +182,22 @@ export default class VideoModal extends React.PureComponent<VideoModalProps> {
               ...shadow
             }}
           >
-            <View style={{ backgroundColor: 'white', width }}>
-              <View style={{ ...StyleSheet.absoluteFillObject }}>
+            <Animated.View style={{ backgroundColor: 'white', width: videoContainerWidth }}>
+              <Animated.View style={{ ...StyleSheet.absoluteFillObject, opacity: playerControlsOpacity }}>
                 <PlayerControls title={video.title} onPress={() => true} />
-              </View>
-              <Video
+              </Animated.View>
+              <AnimatedVideo
                 source={video.video}
-                style={{ width, height: width / 1.78 }}
+                style={{ width: videoWidth, height: videoHeight }}
                 resizeMode={Video.RESIZE_MODE_COVER}
                 shouldPlay
               />
-            </View>
-            <View style={{ backgroundColor: 'white', width, height }}>
-              <View>
+            </Animated.View>
+            <Animated.View style={{ backgroundColor: 'white', width: contentWidth, height: contentHeight }}>
+              <Animated.View style={{ opacity: contentOpacity }}>
                 <VideoContent {...{ video }} />
-              </View>
-            </View>
+              </Animated.View>
+            </Animated.View>
           </Animated.View>
         </PanGestureHandler>
       </>

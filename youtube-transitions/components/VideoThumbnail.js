@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {
-  View, Image, StyleSheet, Text, TouchableWithoutFeedback,
+  View, Image, StyleSheet, Text, TouchableWithoutFeedback
 } from 'react-native';
 
 import PlayerContext from './PlayerContext';
@@ -33,7 +33,7 @@ export default class VideoThumbnail extends React.PureComponent<VideoThumbnailPr
               </View>
             </TouchableWithoutFeedback>
           )
-      }
+        }
       </PlayerContext.Consumer>
     );
   }
@@ -42,23 +42,23 @@ export default class VideoThumbnail extends React.PureComponent<VideoThumbnailPr
 const styles = StyleSheet.create({
   thumbnail: {
     width: '100%',
-    height: 200,
+    height: 200
   },
   description: {
     flexDirection: 'row',
     margin: 16,
-    marginBottom: 32,
+    marginBottom: 32
   },
   avatar: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 16,
+    marginRight: 16
   },
   title: {
-    fontSize: 16,
+    fontSize: 16
   },
   subtitle: {
-    color: 'gray',
-  },
+    color: 'gray'
+  }
 });

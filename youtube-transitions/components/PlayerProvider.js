@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {
-  View, StyleSheet, Dimensions, StatusBar,
+  View, StyleSheet, Dimensions, StatusBar
 } from 'react-native';
 
 import Animated, { Easing } from 'react-native-reanimated';
@@ -22,7 +22,7 @@ type PlayerProviderState = {
 
 export default class PlayerProvider extends React.PureComponent<PlayerProviderProps, PlayerProviderState> {
   state = {
-    video: null,
+    video: null
   };
 
   animation = new Value(0)
@@ -34,7 +34,7 @@ export default class PlayerProvider extends React.PureComponent<PlayerProviderPr
   toggleVideo = () => Animated.timing(this.animation, {
     duration: 300,
     toValue: 1,
-    easing: Easing.inOut(Easing.ease),
+    easing: Easing.inOut(Easing.ease)
   }).start()
 
   render() {
@@ -43,7 +43,7 @@ export default class PlayerProvider extends React.PureComponent<PlayerProviderPr
     const { video } = this.state;
     const translateY = animation.interpolate({
       inputRange: [0, 1],
-      outputRange: [height, 0],
+      outputRange: [height, 0]
     });
     return (
       <PlayerContext.Provider value={{ video, setVideo }}>
@@ -65,6 +65,6 @@ export default class PlayerProvider extends React.PureComponent<PlayerProviderPr
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });

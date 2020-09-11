@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {
-  StyleSheet, View,
+  StyleSheet, View
 } from 'react-native';
 
 import FooterIcon from './FooterIcon';
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   container: {
     height: HEADER_HEIGHT,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
+    justifyContent: 'space-evenly'
+  }
 });

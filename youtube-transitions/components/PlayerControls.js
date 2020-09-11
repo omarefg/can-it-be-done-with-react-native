@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import {
-  View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback,
+  View, StyleSheet, Text, Dimensions, TouchableWithoutFeedback
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import PlayerContext from './PlayerContext';
@@ -44,19 +44,19 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingLeft: 8,
+    paddingLeft: 8
   },
   placeholder: {
-    width: PLACEHOLDER_WIDTH,
+    width: PLACEHOLDER_WIDTH
   },
   icon: {
     fontSize: 24,
     color: 'gray',
-    padding: 8,
-  },
+    padding: 8
+  }
 });

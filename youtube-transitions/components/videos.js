@@ -23,7 +23,7 @@ const videos: Video[] = [
     username: 'Expo',
     avatar: require('../assets/avatars/1.png'),
     views: 189,
-    published: moment().subtract(5, 'days'),
+    published: moment().subtract(5, 'days')
   },
   {
     id: '1',
@@ -33,7 +33,7 @@ const videos: Video[] = [
     username: 'Expo',
     avatar: require('../assets/avatars/1.png'),
     views: 63,
-    published: moment().subtract(10, 'days'),
+    published: moment().subtract(10, 'days')
   },
   {
     id: '2',
@@ -43,7 +43,7 @@ const videos: Video[] = [
     username: 'Expo',
     avatar: require('../assets/avatars/1.png'),
     views: 216,
-    published: moment().subtract(17, 'days'),
+    published: moment().subtract(17, 'days')
   },
   {
     id: '4',
@@ -53,8 +53,8 @@ const videos: Video[] = [
     username: 'Expo',
     avatar: require('../assets/avatars/1.png'),
     views: 273,
-    published: moment().subtract(31, 'days'),
-  },
+    published: moment().subtract(31, 'days')
+  }
 ];
 
 export default videos;

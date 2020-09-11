@@ -11,16 +11,19 @@ type AppState = {
 };
 
 export default class App extends React.PureComponent<{}, AppState> {
-  state = {
-    ready: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ready: false
+    };
+  }
 
   async componentDidMount() {
     await Promise.all(
-      videos.map(video => Promise.all([
+      videos.map((video) => Promise.all([
         Asset.loadAsync(video.video),
         Asset.loadAsync(video.avatar),
-        Asset.loadAsync(video.thumbnail),
+        Asset.loadAsync(video.thumbnail)
       ])),
     );
     this.setState({ ready: true });

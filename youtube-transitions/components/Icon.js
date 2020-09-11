@@ -23,15 +23,15 @@ export default class Icon extends React.PureComponent<IconProps> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   icon: {
     fontSize: 24,
-    color: 'gray',
+    color: 'gray'
   },
   label: {
     color: 'gray',
     textAlign: 'center',
-    marginTop: 8,
-  },
+    marginTop: 8
+  }
 });
