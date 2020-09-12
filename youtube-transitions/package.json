@@ -11,28 +11,28 @@
     "lint": "eslint App.js components/"
   },
   "dependencies": {
-    "@expo/vector-icons": "10.0.0",
-    "expo": "35.0.0",
-    "expo-asset": "7.0.0",
-    "expo-av": "7.0.0",
-    "expo-constants": "7.0.0",
-    "moment": "2.22.2",
-    "react": "16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
-    "react-native-gesture-handler": "1.3.0",
-    "react-native-reanimated": "1.2.0"
+    "@expo/vector-icons": "10.2.1",
+    "expo": "38.0.10",
+    "expo-asset": "8.1.7",
+    "expo-av": "8.2.1",
+    "expo-constants": "9.1.1",
+    "moment": "2.27.0",
+    "react": "16.11.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
+    "react-native-gesture-handler": "1.6.0",
+    "react-native-reanimated": "1.9.0"
   },
   "devDependencies": {
-    "babel-eslint": "10.0.1",
-    "babel-preset-expo": "7.0.0",
-    "eslint": "7.2.0",
+    "babel-eslint": "10.1.0",
+    "babel-preset-expo": "8.2.3",
+    "eslint": "7.8.1",
     "eslint-config-airbnb": "18.2.0",
     "eslint-plugin-flowtype": "5.2.0",
-    "eslint-plugin-import": "2.21.2",
-    "eslint-plugin-jsx-a11y": "6.3.0",
-    "eslint-plugin-react": "7.20.0",
-    "eslint-plugin-react-hooks": "4.0.0",
-    "flow-bin": "^0.133.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-jsx-a11y": "6.3.1",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.2",
+    "flow-bin": "0.133.0",
     "flow-result-checker": "1.1.0"
   }
 }

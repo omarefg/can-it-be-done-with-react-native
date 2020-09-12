@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 
 import { Icon } from './Icon';
-import type { Video } from '../db/videos';
 import { videos } from '../db';
+import type { Video } from '../schemas/Video';
 
 type Props = {
   video: Video,

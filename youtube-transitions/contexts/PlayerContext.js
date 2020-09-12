@@ -3,7 +3,7 @@
  */
 
 import { createContext } from 'react';
-import type { Video } from '../db/videos';
+import type { Video } from '../schemas/Video';
 
 type Value = {
     video: Video | null,

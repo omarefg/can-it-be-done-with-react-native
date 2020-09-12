@@ -2,13 +2,13 @@
  * @flow
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   StyleSheet,
   Text,
   Dimensions,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback, TouchableOpacity
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { PlayerContext } from '../contexts';
@@ -23,6 +23,7 @@ type Props = {
 
 export const PlayerControls = (props: Props) => {
   const { title, onPress } = props;
+  const { setVideo } = useContext(PlayerContext);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -30,13 +31,9 @@ export const PlayerControls = (props: Props) => {
         <View style={styles.placeholder} />
         <Text style={styles.title}>{title}</Text>
         <Feather style={styles.icon} name="play" />
-        <PlayerContext.Consumer>
-          {({ setVideo }) => (
-            <TouchableWithoutFeedback onPress={() => setVideo(null)}>
-              <Feather style={styles.icon} name="x" />
-            </TouchableWithoutFeedback>
-          )}
-        </PlayerContext.Consumer>
+        <TouchableOpacity onPress={() => setVideo(null)}>
+          <Feather style={styles.icon} name="x" />
+        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );

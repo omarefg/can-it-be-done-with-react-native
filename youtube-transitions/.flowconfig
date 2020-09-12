@@ -19,6 +19,9 @@ node_modules/warning/.*
 [untyped]
 .*/node_modules/@react-native-community/cli/.*/.*
 
+[declarations]
+<PROJECT_ROOT>/node_modules/.*
+
 [include]
 
 [libs]
