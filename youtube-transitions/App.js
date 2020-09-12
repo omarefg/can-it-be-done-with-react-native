@@ -1,45 +1,36 @@
-// @flow
-/* eslint-disable global-require */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 
-import { Home, PlayerProvider, videos } from './components';
+import { Home } from './views';
+import { videos } from './db';
+import { PlayerProvider } from './providers';
 
-type AppState = {
-  ready: boolean,
-};
+const App = () => {
+  const [ready, setReady] = useState(false);
 
-export default class App extends React.PureComponent<{}, AppState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ready: false
-    };
-  }
-
-  async componentDidMount() {
+  const loadVideos = useCallback(async () => {
     await Promise.all(
       videos.map((video) => Promise.all([
         Asset.loadAsync(video.video),
         Asset.loadAsync(video.avatar),
         Asset.loadAsync(video.thumbnail)
-      ])),
+      ]))
     );
-    this.setState({ ready: true });
+    setReady(true);
+  }, []);
+
+  useEffect(() => { loadVideos(); }, []);
+
+  if (!ready) {
+    return <AppLoading />;
   }
 
-  render() {
-    const { ready } = this.state;
-    if (!ready) {
-      return (
-        <AppLoading />
-      );
-    }
-    return (
-      <PlayerProvider>
-        <Home />
-      </PlayerProvider>
-    );
-  }
-}
+  return (
+    <PlayerProvider>
+      <Home />
+    </PlayerProvider>
+  );
+};
+
+export default App;

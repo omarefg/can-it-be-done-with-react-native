@@ -1,24 +1,26 @@
-// @flow
-import * as React from 'react';
+/**
+ * @flow
+ */
+
+import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-type IconProps = {
+type Props = {
   name: string,
   label: string,
 };
 
-export default class Icon extends React.PureComponent<IconProps> {
-  render() {
-    const { name, label } = this.props;
-    return (
-      <View style={styles.container}>
-        <Feather style={styles.icon} {...{ name }} />
-        <Text style={styles.label}>{label}</Text>
-      </View>
-    );
-  }
-}
+export const Icon = (props: Props) => {
+  const { name, label } = props;
+
+  return (
+    <View style={styles.container}>
+      <Feather style={styles.icon} {...{ name }} />
+      <Text style={styles.label}>{label}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

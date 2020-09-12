@@ -1,43 +1,43 @@
-// @flow
+/**
+ * @flow
+ */
+
 import * as React from 'react';
 import {
   View, Image, StyleSheet, Text, TouchableWithoutFeedback
 } from 'react-native';
 
-import PlayerContext from './PlayerContext';
-import { type Video } from './videos';
+import { PlayerContext } from '../contexts';
+import { type Video } from '../db';
 
-type VideoThumbnailProps = {
+type Props = {
   video: Video,
 };
 
-export default class VideoThumbnail extends React.PureComponent<VideoThumbnailProps> {
-  render() {
-    const { video } = this.props;
-    return (
-      <PlayerContext.Consumer>
-        {
-          ({ setVideo }) => (
-            <TouchableWithoutFeedback onPress={() => setVideo(video)}>
+export const VideoThumbnail = (props: Props) => {
+  const { video } = props;
+
+  return (
+    <PlayerContext.Consumer>
+      {({ setVideo }) => (
+        <TouchableWithoutFeedback onPress={() => setVideo(video)}>
+          <View>
+            <Image source={video.thumbnail} style={styles.thumbnail} />
+            <View style={styles.description}>
+              <Image source={video.avatar} style={styles.avatar} />
               <View>
-                <Image source={video.thumbnail} style={styles.thumbnail} />
-                <View style={styles.description}>
-                  <Image source={video.avatar} style={styles.avatar} />
-                  <View>
-                    <Text style={styles.title}>{video.title}</Text>
-                    <Text style={styles.subtitle}>
-                      {`${video.username} • ${video.views} views • ${video.published.fromNow()}`}
-                    </Text>
-                  </View>
-                </View>
+                <Text style={styles.title}>{video.title}</Text>
+                <Text style={styles.subtitle}>
+                  {`${video.username} • ${video.views} views • ${video.published.fromNow()}`}
+                </Text>
               </View>
-            </TouchableWithoutFeedback>
-          )
-        }
-      </PlayerContext.Consumer>
-    );
-  }
-}
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      )}
+    </PlayerContext.Consumer>
+  );
+};
 
 const styles = StyleSheet.create({
   thumbnail: {

@@ -1,24 +1,25 @@
-// @flow
-import * as React from 'react';
+/**
+ * @flow
+ */
+
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-type FooterIconProps = {
+type Props = {
   name: string;
   label: string,
 };
 
-export default class FooterIcon extends React.PureComponent<FooterIconProps> {
-  render() {
-    const { name, label } = this.props;
-    return (
-      <View style={styles.container}>
-        <Feather style={styles.icon} {...{ name }} />
-        <Text style={styles.label}>{label.toUpperCase()}</Text>
-      </View>
-    );
-  }
-}
+export const FooterIcon = (props: Props) => {
+  const { name, label } = props;
+  return (
+    <View style={styles.container}>
+      <Feather style={styles.icon} {...{ name }} />
+      <Text style={styles.label}>{label.toUpperCase()}</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

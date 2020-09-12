@@ -1,7 +1,9 @@
-// @flow
-/* eslint-disable global-require */
+/**
+ * @flow
+ */
+
 import moment, { type Moment } from 'moment';
-import type { ImageSourcePropType } from 'react-native/Libraries/Image/ImageSourcePropType';
+import { type ImageSourcePropType } from 'react-native/Libraries/Image/ImageSourcePropType';
 
 export type Video = {
   id: string,
@@ -14,7 +16,7 @@ export type Video = {
   published: Moment,
 };
 
-const videos: Video[] = [
+export const videos: Video[] = [
   {
     id: '3',
     thumbnail: require('../assets/thumbnails/3.jpg'),
@@ -56,5 +58,3 @@ const videos: Video[] = [
     published: moment().subtract(31, 'days')
   }
 ];
-
-export default videos;
