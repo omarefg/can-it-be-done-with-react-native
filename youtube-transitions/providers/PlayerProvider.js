@@ -13,7 +13,7 @@ import Animated, { Easing } from 'react-native-reanimated';
 import { useStateCallback } from '../hooks';
 import { PlayerContext } from '../contexts';
 import { VideoModal } from '../components';
-import { type Video } from '../db';
+import type { Video } from '../db/videos';
 
 const { height } = Dimensions.get('window');
 

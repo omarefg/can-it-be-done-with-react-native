@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { PlayerContext } from '../contexts';
-import { type Video } from '../db';
+import type { Video } from '../db/videos';
 
 type Props = {
   video: Video,

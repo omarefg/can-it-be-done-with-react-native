@@ -2,18 +2,18 @@
  * @flow
  */
 
-import moment, { type Moment } from 'moment';
-import { type ImageSourcePropType } from 'react-native/Libraries/Image/ImageSourcePropType';
+import moment from 'moment';
+import type { ImageSource } from 'react-native/Libraries/Image/ImageSource';
 
 export type Video = {
   id: string,
-  thumbnail: ImageSourcePropType,
-  video: ImageSourcePropType,
+  thumbnail: ImageSource,
+  video: ImageSource,
   title: string,
   username: string,
-  avatar: ImageSourcePropType,
+  avatar: ImageSource,
   views: number,
-  published: Moment,
+  published: typeof moment,
 };
 
 export const videos: Video[] = [

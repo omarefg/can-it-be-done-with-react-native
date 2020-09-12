@@ -8,7 +8,7 @@ import { Video } from 'expo-av';
 import Constants from 'expo-constants';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import { type Video as VideoModel } from '../db';
+import type { Video as VideoModel } from '../db/videos';
 import { VideoContent } from './VideoContent';
 import { PlayerControls, PLACEHOLDER_WIDTH } from './PlayerControls';
 
